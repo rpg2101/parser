@@ -1,0 +1,69 @@
+'''
+Created on 10/10/2012
+
+@author: manu
+'''
+import re
+class ensamblador():
+    def __init__(self):
+        self.linea = ['','','','','']
+    def tipo_op(self):
+        pass
+    
+    def fetch_instruction(self):
+        pass
+    def parser(self,linea):
+        m=linea.split(' ')
+        #print m[0]
+        return m[0]
+    ## unificar y hacer un solo parser no tengo ganas de pensar
+    def parser2(self,linea,tipo_ins):
+        print "tipo dentro de parser",tipo_ins
+        m=linea.split(',')
+        ## es una chanchada
+        mprimer=m[0].split(' ')
+        print mprimer[1]
+    def save(self):
+        pass
+    def open_asm(self):
+        f = open("archivo.asm", "r")
+        i=0
+        while True:
+            self.linea.insert(i, f.readline()) 
+            if not self.linea[i]: break
+            i=i+1
+        print self.linea[1]
+        return self.linea
+
+    def tipo_instruccion(self,n):
+        tipo_R={"SLL":0b000000,"SRL":0b000010,"SRA":0b0000011, "SRLV":0b000110, "SRAV":0b000111, "ADD":0b100000, "SLLV":0b000100,"ADDU":0b100001, "SUB":0b100010,"SUBU":0b100011, "AND":0b100100,"OR":3, "XOR":0b100110,"NOR":0b100111, "SLT":0b101010,"SLTU":0b101011}
+        tipo_I={"LB":0b100000,"LH":0b100001,"LW":0b100011, "LWU":0b100111, "LBU":0b100100, "LHU":0b100101, "SB":0b101000,"SH":0b101001, "SW":0b101011,"ADDI":0b001000, "ADDIU":0b001001,"ANDI":0b001100, "ORI":0b001101,"XORI":0b001110, "LUI":0b001111,"SLTI":0b001010,"SLTIU":0b001011, "BEQ":0b00100,"BNE":0b000101,"J":0b000010, "JAL":0b000011}
+        tipo_J={"JR":0x8, "JALR":0x9}
+        VECTOR=[tipo_R,tipo_I,tipo_J]
+        i=0
+        for s in VECTOR:
+            i = i+1
+            try:
+                
+                print bin(s['LB'])
+                tipo_ins = i
+            except:
+                print ""  
+            
+        #a=tipo_R['JR']
+        print "tipo instr",tipo_ins
+        
+        return tipo_ins
+    def ordenar(self,linea,tipo_ins):
+        print parseado ## este metodo se encarga de sabiendo el tipo de operacion armar el codigo
+        juancito=asm.parser2(linea,tipo_ins)
+        print juancito
+
+
+if __name__ == '__main__':
+    asm = ensamblador()
+    linea = asm.open_asm() 
+    parseado = asm.parser(linea[2])
+    tipo=asm.tipo_instruccion('XOR')
+    ## una vez que obtengo el tipo de instruccion puedo empezar a almacenar.. 
+    asm.ordenar(linea[1],tipo)
